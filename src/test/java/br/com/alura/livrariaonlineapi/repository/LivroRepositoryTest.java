@@ -140,11 +140,11 @@ public class LivroRepositoryTest {
                 .hasSize(5)
                 .extracting(ItemLivrosDTO::getAutor, ItemLivrosDTO::getQuantidadeLivros, ItemLivrosDTO::getPercentual)
                 .containsExactlyInAnyOrder(
-                        Assertions.tuple("Andre Da Silva", 2l, new BigDecimal("700.01")),
-                        Assertions.tuple("Fernanda Nogueira", 2l, new BigDecimal("700.01")),
-                        Assertions.tuple("Juliana Carvalho", 1l, new BigDecimal("699.99")),
-                        Assertions.tuple("Rita De Assis", 1l, new BigDecimal("699.99")),
-                        Assertions.tuple("Rodrigo De Souza", 1l, new BigDecimal("699.99"))
+                        Assertions.tuple("Andre Da Silva", 2l, new BigDecimal("700.00")),
+                        Assertions.tuple("Fernanda Nogueira", 2l, new BigDecimal("700.00")),
+                        Assertions.tuple("Juliana Carvalho", 1l, new BigDecimal("700.00")),
+                        Assertions.tuple("Rita De Assis", 1l, new BigDecimal("700.00")),
+                        Assertions.tuple("Rodrigo De Souza", 1l, new BigDecimal("700.00"))
                 );
 
     }

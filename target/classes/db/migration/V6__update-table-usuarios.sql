@@ -1,1 +1,0 @@
-update usuarios set login = "assis" where id = 1;
