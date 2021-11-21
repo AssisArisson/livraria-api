@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -47,12 +48,12 @@ class UsuarioControllerTest {
 
     @BeforeEach
     public void gerarToken(){
-        Usuario logado = new Usuario("fulano", "fulano", "123456");
+        Usuario usuarioLogado = new Usuario("fulano", "fulano", "123456");
         Perfil admin = perfilRepository.findById(1l).get();
-        logado.adicionarPerfil(admin);
-        usuarioRepository.save(logado);
+        usuarioLogado.adicionarPerfil(admin);
+        usuarioRepository.save(usuarioLogado);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(logado, logado.getLogin());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(usuarioLogado, usuarioLogado.getLogin());
         this.token = tokenService.gerarToken(authentication);
 
     }
@@ -70,19 +71,19 @@ class UsuarioControllerTest {
 
     }
 
-  /*  @Test
-    void DeveriaCadastrarUsuarioCopmDadosCompletos() throws Exception{
-        String json = "{\"nome\":\"fulano\", \"login\":\"fulano@gmail.com\", \"perfilId\":1\"}";
+    @Test
+    void DeveriaCadastrarUsuarioCopmDadosCompletos() throws Exception {
+        String json = "{\"nome\":\"fulano\", \"login\":\"fulano@gmail.com\", \"perfilId\":1,\"email\":\"fulano@gmail.com\"}";
         String jsonEsperado = "{\"nome\":\"fulano\", \"login\":\"fulano@gmail.com\"}";
 
         mvc
                 .perform(post("/usuarios")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
-                        .header("Authorization", "Bearer " + token))
+                        .header("Authorization","Bearer " + token))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andExpect(content().json(jsonEsperado));
-    }*/
+                .andExpect(MockMvcResultMatchers.content().json(jsonEsperado));
+    }
 
 }
