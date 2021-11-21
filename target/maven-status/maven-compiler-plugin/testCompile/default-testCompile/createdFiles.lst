@@ -1,0 +1,4 @@
+br/com/alura/livrariaonlineapi/LivrariaonlineApiApplicationTests.class
+br/com/alura/livrariaonlineapi/repository/LivroRepositoryTest.class
+br/com/alura/livrariaonlineapi/controller/LivroControllerTest.class
+br/com/alura/livrariaonlineapi/service/LivroServiceTest.class
