@@ -2,6 +2,7 @@ package br.com.alura.livrariaonlineapi.service;
 
 import br.com.alura.livrariaonlineapi.dto.UsuarioInDTO;
 import br.com.alura.livrariaonlineapi.dto.UsuarioOutDTO;
+import br.com.alura.livrariaonlineapi.infra.EnviadorDeEmail;
 import br.com.alura.livrariaonlineapi.modelo.Perfil;
 import br.com.alura.livrariaonlineapi.modelo.Usuario;
 import br.com.alura.livrariaonlineapi.repository.PerfilRepository;
@@ -33,6 +34,9 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private EnviadorDeEmail enviadorDeEmail;
+
     public Page<UsuarioOutDTO> listar(Pageable paginacao) {
         Page<Usuario> usuarios = usuarioRepository.findAll(paginacao);
         return usuarios
@@ -51,6 +55,14 @@ public class UsuarioService {
         usuario.setSenha(bCryptPasswordEncoder.encode(senha));
 
         usuarioRepository.save(usuario);
+
+        String destinatario = usuario.getEmail();
+        String assunto = "Livraria Online - Bem vindo(a)";
+        String mensagem = String.format("Ola %s!\n\n" +
+                "Segue seus dados de acesso ao sistema Livraria:" +
+                "\nLogin:%s\nSenha:%s", usuario.getNome(), usuario.getLogin(), senha);
+
+        enviadorDeEmail.enviarEmail(destinatario, assunto, mensagem);
 
         return modelMapper.map(usuario, UsuarioOutDTO.class);
     }

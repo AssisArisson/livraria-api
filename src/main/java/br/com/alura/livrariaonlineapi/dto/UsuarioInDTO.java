@@ -3,6 +3,7 @@ package br.com.alura.livrariaonlineapi.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -18,4 +19,8 @@ public class UsuarioInDTO {
 
     @NotNull
     private Long perfilId;
+
+    @NotBlank
+    @Email
+    private String email;
 }
